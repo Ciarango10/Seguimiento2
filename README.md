@@ -178,6 +178,9 @@ Los errores se devuelven como `application/problem+json`:
 | 409 | Valor duplicado o credencial vigente existente |
 | 422 | Se incumple una regla de negocio (incluye `code`, por ejemplo `credential_revoked`) |
 
+En [`docs/evidencias.md`](docs/evidencias.md) está una ejecución completa de punta a punta contra SQL Server:
+cada petición con su respuesta y el contenido final de las tablas.
+
 Las listas devuelven `items`, `page`, `pageSize`, `totalCount`, `totalPages`, `hasPreviousPage` y `hasNextPage`;
 el tamaño de página máximo es 100.
 
