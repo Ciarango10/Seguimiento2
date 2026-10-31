@@ -1,0 +1,21 @@
+@baseUrl = http://localhost:5180
+@employeeId = 00000000-0000-0000-0000-000000000000
+@accessPointId = 00000000-0000-0000-0000-000000000000
+
+### Últimos movimientos (primera página)
+GET {{baseUrl}}/api/access-history?page=1&pageSize=10
+
+### Movimientos de un empleado
+GET {{baseUrl}}/api/access-history?employeeId={{employeeId}}
+
+### Solo los rechazados
+GET {{baseUrl}}/api/access-history?result=Denied
+
+### Por punto de acceso y rango de fechas
+GET {{baseUrl}}/api/access-history?accessPointId={{accessPointId}}&from=2026-10-01T00:00:00-05:00&to=2026-12-31T23:59:59-05:00
+
+### Rango invertido: 400
+GET {{baseUrl}}/api/access-history?from=2026-12-31T00:00:00Z&to=2026-01-01T00:00:00Z
+
+### Tamaño de página excesivo: 400
+GET {{baseUrl}}/api/access-history?pageSize=500
