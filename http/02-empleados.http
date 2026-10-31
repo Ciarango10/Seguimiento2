@@ -1,0 +1,80 @@
+@baseUrl = http://localhost:5180
+
+### Registrar un empleado
+POST {{baseUrl}}/api/employees
+Content-Type: application/json
+
+{
+  "documentNumber": "1036789456",
+  "firstNames": "Laura Marcela",
+  "lastNames": "Gómez Restrepo",
+  "email": "laura.gomez@logistica.com",
+  "jobTitle": "Analista de inventarios",
+  "department": "Bodega"
+}
+
+### Registrar otro empleado
+POST {{baseUrl}}/api/employees
+Content-Type: application/json
+
+{
+  "documentNumber": "71234567",
+  "firstNames": "Andrés",
+  "lastNames": "Ríos Cardona",
+  "email": "andres.rios@logistica.com",
+  "jobTitle": "Coordinador de seguridad",
+  "department": "Seguridad"
+}
+
+### Identificación repetida: 409
+POST {{baseUrl}}/api/employees
+Content-Type: application/json
+
+{
+  "documentNumber": "1036789456",
+  "firstNames": "Otra",
+  "lastNames": "Persona",
+  "email": "otra@logistica.com",
+  "jobTitle": "Auxiliar",
+  "department": "Bodega"
+}
+
+### Datos inválidos: 400
+POST {{baseUrl}}/api/employees
+Content-Type: application/json
+
+{
+  "documentNumber": "",
+  "firstNames": "",
+  "lastNames": "Sin nombre",
+  "email": "no-es-correo",
+  "jobTitle": "Auxiliar",
+  "department": "Bodega"
+}
+
+### Buscar por nombre
+GET {{baseUrl}}/api/employees?search=laura
+
+### Filtrar por área y estado, con paginación
+GET {{baseUrl}}/api/employees?department=Bodega&status=Active&page=1&pageSize=5
+
+### Consultar por id (reemplace el id)
+GET {{baseUrl}}/api/employees/00000000-0000-0000-0000-000000000000
+
+### Actualizar datos
+PUT {{baseUrl}}/api/employees/00000000-0000-0000-0000-000000000000
+Content-Type: application/json
+
+{
+  "firstNames": "Laura Marcela",
+  "lastNames": "Gómez Restrepo",
+  "email": "laura.gomez@logistica.com",
+  "jobTitle": "Líder de inventarios",
+  "department": "Bodega"
+}
+
+### Desactivar
+POST {{baseUrl}}/api/employees/00000000-0000-0000-0000-000000000000/deactivate
+
+### Reactivar
+POST {{baseUrl}}/api/employees/00000000-0000-0000-0000-000000000000/reactivate
