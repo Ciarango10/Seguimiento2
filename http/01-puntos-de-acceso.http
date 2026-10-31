@@ -1,0 +1,57 @@
+@baseUrl = http://localhost:5180
+
+### Registrar la recepción
+POST {{baseUrl}}/api/access-points
+Content-Type: application/json
+
+{
+  "code": "REC-01",
+  "name": "Recepción principal",
+  "kind": "Reception",
+  "location": "Sede principal, piso 1"
+}
+
+### Registrar el parqueadero
+POST {{baseUrl}}/api/access-points
+Content-Type: application/json
+
+{
+  "code": "PARQ-01",
+  "name": "Parqueadero sótano",
+  "kind": "Parking",
+  "location": "Sede principal, sótano 1"
+}
+
+### Registrar la bodega
+POST {{baseUrl}}/api/access-points
+Content-Type: application/json
+
+{
+  "code": "BOD-01",
+  "name": "Bodega de despachos",
+  "kind": "Warehouse",
+  "location": "Bloque B"
+}
+
+### Código repetido: 409
+POST {{baseUrl}}/api/access-points
+Content-Type: application/json
+
+{
+  "code": "rec-01",
+  "name": "Otra recepción",
+  "kind": "Reception",
+  "location": "Piso 2"
+}
+
+### Listar solo los habilitados
+GET {{baseUrl}}/api/access-points?isEnabled=true&page=1&pageSize=10
+
+### Listar por tipo
+GET {{baseUrl}}/api/access-points?kind=Warehouse
+
+### Deshabilitar un punto (reemplace el id)
+POST {{baseUrl}}/api/access-points/00000000-0000-0000-0000-000000000000/disable
+
+### Volver a habilitarlo
+POST {{baseUrl}}/api/access-points/00000000-0000-0000-0000-000000000000/enable
