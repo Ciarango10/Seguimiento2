@@ -1,3 +1,4 @@
+using System.Text.Json;
 using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ internal sealed class ApiExceptionHandler(ILogger<ApiExceptionHandler> logger) :
         {
             ValidationException validation => new ValidationProblemDetails(
                 validation.Errors
-                    .GroupBy(error => error.PropertyName)
+                    .GroupBy(error => JsonNamingPolicy.CamelCase.ConvertName(error.PropertyName))
                     .ToDictionary(group => group.Key, group => group.Select(error => error.ErrorMessage).ToArray()))
             {
                 Status = StatusCodes.Status400BadRequest,
