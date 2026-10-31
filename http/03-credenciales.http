@@ -1,0 +1,40 @@
+@baseUrl = http://localhost:5180
+@employeeId = 00000000-0000-0000-0000-000000000000
+@code = SGC-AAAA-BBBB
+
+### Asignar una credencial (reemplace employeeId)
+POST {{baseUrl}}/api/employees/{{employeeId}}/credentials
+
+### Asignar otra al mismo empleado: 409, ya tiene una vigente
+POST {{baseUrl}}/api/employees/{{employeeId}}/credentials
+
+### Consultar por código (reemplace code con el que devolvió la asignación)
+GET {{baseUrl}}/api/credentials/{{code}}
+
+### Credenciales del empleado
+GET {{baseUrl}}/api/credentials?employeeId={{employeeId}}
+
+### Solo las bloqueadas
+GET {{baseUrl}}/api/credentials?status=Blocked&page=1&pageSize=10
+
+### Bloquear
+POST {{baseUrl}}/api/credentials/{{code}}/block
+Content-Type: application/json
+
+{
+  "reason": "Reporte de pérdida"
+}
+
+### Desbloquear
+POST {{baseUrl}}/api/credentials/{{code}}/unblock
+
+### Revocar
+POST {{baseUrl}}/api/credentials/{{code}}/revoke
+Content-Type: application/json
+
+{
+  "reason": "Retiro del empleado"
+}
+
+### Desbloquear una revocada: 422
+POST {{baseUrl}}/api/credentials/{{code}}/unblock

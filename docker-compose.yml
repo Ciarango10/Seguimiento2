@@ -1,0 +1,14 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sgcae-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Sgcae_Dev_2026!"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sgcae-data:/var/opt/mssql
+
+volumes:
+  sgcae-data:
