@@ -1,0 +1,72 @@
+@baseUrl = http://localhost:5180
+@code = SGC-AAAA-BBBB
+
+### Entrada autorizada (reemplace code con una credencial activa)
+POST {{baseUrl}}/api/access-events
+Content-Type: application/json
+
+{
+  "credentialCode": "{{code}}",
+  "accessPointCode": "REC-01",
+  "direction": "Entry"
+}
+
+### Segunda entrada sin salida: rechazada con AlreadyInside
+POST {{baseUrl}}/api/access-events
+Content-Type: application/json
+
+{
+  "credentialCode": "{{code}}",
+  "accessPointCode": "BOD-01",
+  "direction": "Entry"
+}
+
+### Salida autorizada
+POST {{baseUrl}}/api/access-events
+Content-Type: application/json
+
+{
+  "credentialCode": "{{code}}",
+  "accessPointCode": "REC-01",
+  "direction": "Exit"
+}
+
+### Salida sin entrada: rechazada con NotInside
+POST {{baseUrl}}/api/access-events
+Content-Type: application/json
+
+{
+  "credentialCode": "{{code}}",
+  "accessPointCode": "REC-01",
+  "direction": "Exit"
+}
+
+### Credencial desconocida: rechazada con CredentialNotFound
+POST {{baseUrl}}/api/access-events
+Content-Type: application/json
+
+{
+  "credentialCode": "SGC-ZZZZ-ZZZZ",
+  "accessPointCode": "REC-01",
+  "direction": "Entry"
+}
+
+### Punto de acceso inexistente: rechazada con AccessPointNotFound
+POST {{baseUrl}}/api/access-events
+Content-Type: application/json
+
+{
+  "credentialCode": "{{code}}",
+  "accessPointCode": "NO-EXISTE",
+  "direction": "Entry"
+}
+
+### Tipo de movimiento inválido: 400
+POST {{baseUrl}}/api/access-events
+Content-Type: application/json
+
+{
+  "credentialCode": "{{code}}",
+  "accessPointCode": "REC-01",
+  "direction": "Sideways"
+}
